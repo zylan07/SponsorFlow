@@ -1,0 +1,20 @@
+# Database Credentials (Aiven Cloud / Local MySQL)
+config/database.php
+.env
+.env.local
+
+# Logs and system files
+*.log
+.DS_Store
+Thumbs.db
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Temporary files
+*.tmp
+*.bak
+scratch/
