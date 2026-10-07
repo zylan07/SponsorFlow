@@ -1,6 +1,6 @@
 # SponsorFlow — Database Documentation
 
-This document details the relational database design for **SponsorFlow**, built for **MySQL 8+** and compatible with **Aiven Cloud MySQL**.
+This document details the relational database design for **SponsorFlow**, built for **MySQL 8+** (Local MySQL Server).
 
 ---
 

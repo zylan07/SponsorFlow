@@ -3,7 +3,7 @@
 
 [![PHP 8+](https://img.shields.io/badge/PHP-8.2%2B-blue.svg)](https://www.php.net/)
 [![MySQL 8+](https://img.shields.io/badge/MySQL-8.0%2B-orange.svg)](https://www.mysql.com/)
-[![Aiven Cloud](https://img.shields.io/badge/Aiven-Cloud%20MySQL-red.svg)](https://aiven.io/)
+[![Database](https://img.shields.io/badge/Database-Local%20MySQL-success.svg)]()
 [![Security](https://img.shields.io/badge/Security-Prepared%20Statements%20%7C%20CSRF%20%7C%20Bcrypt-green.svg)]()
 
 ---
@@ -39,7 +39,7 @@ Prospect → Outreach → Follow-up → Proposal → Negotiation → Confirmed �
 
 - **Frontend:** HTML5, CSS3 (Modern SaaS design system, CSS Grid, Flexbox, Dark Mode), Vanilla JavaScript (no heavy frontend frameworks).
 - **Backend:** PHP 8.2+ (Modular procedural MVC-style controllers, PDO extension, native sessions).
-- **Database:** MySQL 8.0+ / **Aiven Cloud MySQL** (InnoDB engine, utf8mb4, foreign key constraints, cascading updates/deletions).
+- **Database:** Local MySQL 8.0+ Server (InnoDB engine, utf8mb4, foreign key constraints, cascading updates/deletions).
 - **Security:** PDO prepared statements (zero SQL concatenation), CSRF token verification on all POST actions, HTML entity escaping (`htmlspecialchars`), bcrypt hashing.
 
 ---
@@ -64,7 +64,7 @@ SponsorFlow/
 │
 ├── config/
 │   ├── database.php          # Active database credentials (ignored by Git)
-│   └── database.example.php  # Template for local & Aiven Cloud MySQL
+│   └── database.example.php  # Template for local MySQL setup
 │
 ├── includes/
 │   ├── auth.php              # Session guards, RBAC, and auth helpers
@@ -121,33 +121,24 @@ SponsorFlow/
 
 ---
 
-## 5. Database Setup (Local MySQL or Aiven Cloud MySQL)
+## 5. Local Database Configuration
 
-### Option A: Aiven Cloud MySQL Setup (Recommended)
-1. Log in to your [Aiven Console](https://console.aiven.io/).
-2. Select your MySQL service.
-3. Note your **Host**, **Port**, **User**, **Password**, and **Database name**.
-4. Download the `ca.pem` SSL certificate from your Aiven dashboard if required.
-5. Copy the configuration template:
+SponsorFlow connects to a local MySQL 8.0+ instance via PDO:
+
+1. Ensure MySQL Server is running locally (default port `3306`).
+2. Copy `config/database.example.php` to `config/database.php` if setting up on a new machine:
    ```bash
    cp config/database.example.php config/database.php
    ```
-6. Open `config/database.php` and enter your Aiven credentials:
+3. Configuration in `config/database.php`:
    ```php
-   define('DB_HOST', 'your-service.aivencloud.com');
-   define('DB_PORT', '12345'); // Your 5-digit Aiven port
-   define('DB_NAME', 'defaultdb');
-   define('DB_USER', 'avnadmin');
-   define('DB_PASSWORD', 'YOUR_ACTUAL_AIVEN_PASSWORD');
-   define('DB_SSL_CA', __DIR__ . '/ca.pem'); // If using CA file, or null
-   define('DB_SSL_VERIFY', false);
+   define('DB_HOST', '127.0.0.1');
+   define('DB_PORT', '3306');
+   define('DB_NAME', 'sponsorflow');
+   define('DB_USER', 'root');
+   define('DB_PASSWORD', ''); // Set your local root password if configured
    ```
-   > **SECURITY NOTICE:** `config/database.php` is listed in `.gitignore`. Never commit or expose your actual password.
-
-### Option B: Local MySQL Setup
-1. Ensure MySQL Server is running locally (default port `3306`).
-2. Copy `config/database.example.php` to `config/database.php`.
-3. Set your local credentials (e.g. `DB_HOST = '127.0.0.1'`, `DB_USER = 'root'`, `DB_PASSWORD = ''`).
+   > **SECURITY NOTICE:** `config/database.php` is listed in `.gitignore`. Never commit or expose passwords to source control.
 
 ---
 

@@ -2,7 +2,7 @@
 /**
  * SponsorFlow - Database Migration & Seeding CLI/Web Tool
  * 
- * Runs schema.sql and seed.sql against the configured MySQL database.
+ * Runs schema.sql and seed.sql against the configured local MySQL database.
  */
 
 require_once __DIR__ . '/../config/database.php';
@@ -16,16 +16,18 @@ function runMigration() {
     echo "============================================{$nl}";
 
     try {
-        echo "Connecting to MySQL server (" . DB_HOST . ":" . DB_PORT . ")...{$nl}";
+        echo "Ensuring MySQL database '" . DB_NAME . "' exists on " . DB_HOST . ":" . DB_PORT . "...{$nl}";
         
-        // Ensure database exists
+        // Connect to server without specific database to create it if needed
         $serverDsn = sprintf('mysql:host=%s;port=%s;charset=utf8mb4', DB_HOST, DB_PORT);
         $serverPdo = new PDO($serverDsn, DB_USER, DB_PASSWORD, [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ]);
         $serverPdo->exec("CREATE DATABASE IF NOT EXISTS `" . DB_NAME . "` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
-        echo " Database '" . DB_NAME . "' verified/created.{$nl}";
+        echo " Database '" . DB_NAME . "' is ready!{$nl}";
 
+        // Connect to the specific database
+        echo "Connecting to '" . DB_NAME . "'...{$nl}";
         $pdo = getDBConnection();
         echo " Connected to database successfully!{$nl}";
 
@@ -35,10 +37,8 @@ function runMigration() {
             throw new Exception("schema.sql not found at: {$schemaPath}");
         }
 
-        echo "Reading schema.sql...{$nl}";
+        echo "Reading and executing schema.sql...{$nl}";
         $schemaSql = file_get_contents($schemaPath);
-        
-        // Execute schema
         $pdo->exec($schemaSql);
         echo " Schema created successfully (all 9 tables)!{$nl}";
 
@@ -48,10 +48,8 @@ function runMigration() {
             throw new Exception("seed.sql not found at: {$seedPath}");
         }
 
-        echo "Reading seed.sql...{$nl}";
+        echo "Reading and executing seed.sql...{$nl}";
         $seedSql = file_get_contents($seedPath);
-
-        // Execute seed
         $pdo->exec($seedSql);
         echo " Realistic seed data loaded successfully!{$nl}";
 
@@ -71,8 +69,7 @@ function runMigration() {
         echo " [ERROR] Database Error: " . $e->getMessage() . "{$nl}";
         echo "Troubleshooting:{$nl}";
         echo "1. Verify host, port, database, username, and password in config/database.php{$nl}";
-        echo "2. If using Aiven Cloud MySQL, ensure your IP is allowed or public access is enabled in Aiven console.{$nl}";
-        echo "3. Ensure SSL CA is configured if required by your cloud provider.{$nl}";
+        echo "2. Ensure your local MySQL server is running on " . DB_HOST . ":" . DB_PORT . "{$nl}";
         if ($isCli) exit(1);
     } catch (Exception $e) {
         echo " [ERROR] " . $e->getMessage() . "{$nl}";

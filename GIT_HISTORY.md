@@ -46,3 +46,13 @@ This repository represents the consolidated, full-stack **SponsorFlow** web appl
   - `VIVA_PREPARATION.md`
 - Configured `.gitignore` to safeguard database credentials and environment files.
 - Completed project cleanup and final submission readiness.
+
+### Milestone 4: Local MySQL Migration
+**Commit Hash / Reference:** `milestone/v3.1-local-mysql-migration`
+- Migrated primary database infrastructure from external cloud hosting to local native MySQL 8.0 server (`127.0.0.1:3306`).
+- Updated `config/database.php` and `config/database.example.php` for local PDO connections without SSL dependencies.
+- Updated `database/init_db.php` to automatically check and create the `sponsorflow` database if not present, then execute `schema.sql` and `seed.sql`.
+- Removed obsolete cloud CA certificate files and updated `.gitignore`.
+- Re-executed automated test suite against local MySQL: 18/18 tests passed (100%).
+- Updated all academic documentation to reflect the local MySQL runtime environment.
+

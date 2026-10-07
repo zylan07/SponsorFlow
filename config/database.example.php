@@ -4,21 +4,15 @@
  * 
  * Instructions:
  * 1. Copy this file to 'config/database.php'
- * 2. Fill in your Aiven Cloud MySQL credentials (or local MySQL credentials)
- * 3. Never commit 'config/database.php' to source control.
+ * 2. Configure your local MySQL credentials (default port 3306, user 'root')
+ * 3. Never commit 'config/database.php' with production passwords to source control.
  */
 
-define('DB_HOST', 'your-aiven-host.aivencloud.com');
-define('DB_PORT', '12345'); // Default Aiven port is usually 5-digit e.g. 17892; standard MySQL is 3306
-define('DB_NAME', 'defaultdb');
-define('DB_USER', 'avnadmin');
-define('DB_PASSWORD', 'your_secure_password_here');
-
-// SSL Configuration for Aiven Cloud MySQL
-// Path to CA certificate (e.g., __DIR__ . '/ca.pem'). 
-// If null, PHP will attempt system CA or SSL connection with default verification.
-define('DB_SSL_CA', null); 
-define('DB_SSL_VERIFY', false); // Set to true when providing a verified CA certificate file
+define('DB_HOST', '127.0.0.1');
+define('DB_PORT', '3306');
+define('DB_NAME', 'sponsorflow');
+define('DB_USER', 'root');
+define('DB_PASSWORD', '');
 
 /**
  * Returns a configured PDO database connection instance.
@@ -46,20 +40,13 @@ function getDBConnection(): PDO {
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 
-    // Configure SSL for Aiven Cloud MySQL
-    if (defined('PDO::MYSQL_ATTR_SSL_CA') && DB_SSL_CA && file_exists(DB_SSL_CA)) {
-        $options[PDO::MYSQL_ATTR_SSL_CA] = DB_SSL_CA;
-    }
-
-    if (defined('PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT')) {
-        $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = (bool) DB_SSL_VERIFY;
-    }
-
     try {
         $pdo = new PDO($dsn, DB_USER, DB_PASSWORD, $options);
         return $pdo;
     } catch (PDOException $e) {
         error_log('Database connection error: ' . $e->getMessage());
-        throw new PDOException('Database connection failed. Please verify credentials in config/database.php.');
+        throw new PDOException(
+            'Database connection failed: ' . $e->getMessage()
+        );
     }
 }

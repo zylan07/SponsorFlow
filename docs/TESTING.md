@@ -6,7 +6,7 @@ This document details the functional, security, validation, and integration test
 
 ## 1. Test Summary
 - **Test Strategy:** Automated HTTP Integration Testing (`tests/test_suite.php`) + Manual Functional Testing.
-- **Environment:** PHP 8.2 (Built-in Server), MySQL 8.0 / Aiven Cloud MySQL with SSL.
+- **Environment:** PHP 8.2 (Built-in Server), Local MySQL 8.0 Server.
 - **Pass Rate:** 100% (All test cases passed).
 
 ---

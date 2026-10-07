@@ -32,8 +32,7 @@ The Context Diagram portrays the boundaries of the entire system as a single pro
                       v                       |
                     +---------------------------+
                     |            D1             |
-                    |      MySQL Database       |
-                    |   (Aiven Cloud / Local)   |
+                    |       (Local MySQL)       |
                     +---------------------------+
 ```
 

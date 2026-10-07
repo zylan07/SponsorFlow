@@ -1,6 +1,6 @@
 -- ====================================================================
 -- SponsorFlow - Database Schema
--- Target: MySQL 8+ (Aiven Cloud MySQL / Local MySQL)
+-- Target: MySQL 8+ (Local MySQL Server)
 -- ====================================================================
 
 SET FOREIGN_KEY_CHECKS = 0;

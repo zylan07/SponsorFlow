@@ -30,9 +30,9 @@ Event sponsorship data is inherently relational: companies have multiple contact
 
 ---
 
-### 5. Why Aiven Cloud MySQL?
+### 5. Why MySQL for SponsorFlow?
 **Answer:**
-Aiven provides managed cloud MySQL hosting with high availability and automated SSL encryption. Using Aiven ensures that the application can run in a production-ready cloud environment accessible from anywhere without requiring local database servers.
+MySQL 8.0+ provides an ACID-compliant, highly reliable relational database engine with native foreign key support, cascading constraints, and robust indexing. For an event sponsorship system tracking corporate relationships, financial totals, and multi-tier deliverables, relational integrity is critical to avoid orphaned records and financial discrepancies.
 
 ---
 
@@ -53,7 +53,7 @@ In SponsorFlow, every core module (Companies, Contacts, Outreach, Follow-ups, Pr
 **PDO (PHP Data Objects)** is a database abstraction layer in PHP that provides a consistent interface for working with various databases. We chose PDO over `mysqli` because:
 1. It supports named parameters (`:email`, `:company_id`), making prepared statements much more readable.
 2. It throws standard `PDOException` objects for robust error handling.
-3. It provides built-in SSL configuration attributes (`PDO::MYSQL_ATTR_SSL_CA`) required by cloud providers like Aiven.
+3. It enforces strict type safety and secure emulation modes (`PDO::ATTR_EMULATE_PREPARES => false`).
 
 ---
 

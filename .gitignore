@@ -1,5 +1,7 @@
-# Database Credentials (Aiven Cloud / Local MySQL)
+# Database Configuration and Credentials
 config/database.php
+config/ca.pem
+*.pem
 .env
 .env.local
 

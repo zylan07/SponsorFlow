@@ -11,7 +11,7 @@
 ### 2. Abstract
 Event organization for college symposia, hackathons, academic conferences, and cultural fests requires sustained coordination with corporate sponsors and industry partners. Historically, organizing committees rely on ad-hoc combinations of personal spreadsheets, unstructured email chains, and messaging apps. This fragmented approach leads to missed follow-ups, lost proposal versions, delayed invoice tracking, and unfulfilled sponsor deliverables (such as missing logo placements or unassigned booth spaces).
 
-**SponsorFlow** is a full-stack, industrial-grade web application engineered using **HTML5, CSS3, Vanilla JavaScript, PHP 8+**, and **MySQL (compatible with Aiven Cloud MySQL)**. It centralizes the complete lifecycle of event sponsorships into an integrated CRM: from cold lead prospecting, communications logging, follow-up scheduling, and proposal generation, to contract signing, payment milestone monitoring, on-ground deliverable fulfillment, and real-time executive analytics.
+**SponsorFlow** is a full-stack, industrial-grade web application engineered using **HTML5, CSS3, Vanilla JavaScript, PHP 8+**, and **MySQL 8+**. It centralizes the complete lifecycle of event sponsorships into an integrated CRM: from cold lead prospecting, communications logging, follow-up scheduling, and proposal generation, to contract signing, payment milestone monitoring, on-ground deliverable fulfillment, and real-time executive analytics.
 
 ---
 
@@ -50,7 +50,7 @@ The proposed SponsorFlow platform introduces an integrated relational database a
 ### 6. Objectives
 1. Build a responsive, clean B2B SaaS web interface using HTML5, CSS3, and Vanilla JavaScript.
 2. Implement server-side business logic and session-based authentication in PHP 8+.
-3. Architect a normalized MySQL database schema supporting both local MySQL and Aiven Cloud MySQL over SSL.
+3. Architect a normalized MySQL database schema supporting Local MySQL Server.
 4. Eliminate SQL injection vulnerabilities via PDO prepared statements.
 5. Protect state-changing HTTP requests with Cross-Site Request Forgery (CSRF) tokens.
 6. Provide an intuitive user experience with modal-based CRUD operations and client/server validation.
@@ -111,7 +111,7 @@ Post-Event Reporting (Analytics & Conversion Metrics)
 ### 10. Technology Stack
 - **Frontend Layer:** HTML5 (semantic elements, `<dialog>`, form inputs), CSS3 (CSS custom properties, CSS Grid, Flexbox, dark mode media queries), Vanilla JavaScript (DOM manipulation, Fetch API, RegEx validation).
 - **Backend Layer:** PHP 8.2+ (Procedural and modular architecture, PDO extension, native session handling).
-- **Database Layer:** MySQL 8.0+ (InnoDB engine, utf8mb4 charset, foreign keys, cascading constraints), Aiven Cloud MySQL with SSL encryption (`MYSQL_ATTR_SSL_CA`).
+- **Database Layer:** MySQL 8.0+ (InnoDB engine, utf8mb4 charset, foreign keys, cascading constraints) running locally on port 3306.
 - **Security:** Bcrypt hashing, CSRF tokens (`hash_equals`), XSS sanitization (`htmlspecialchars`), Prepared Statements.
 
 ---
@@ -123,7 +123,7 @@ Post-Event Reporting (Analytics & Conversion Metrics)
 |       (HTML5 Forms, CSS3 Responsive Grid, Vanilla JS)       |
 +-------------------------------------------------------------+
                               |
-                     HTTP / HTTPS (SSL)
+                         HTTP Requests
                               |
                               v
 +-------------------------------------------------------------+
@@ -135,12 +135,11 @@ Post-Event Reporting (Analytics & Conversion Metrics)
 |  - API Endpoints          (api/*.php REST JSON endpoints)   |
 +-------------------------------------------------------------+
                               |
-                       PDO (Prepared SQL)
-                      + SSL CA Encryption
+                        PDO (Prepared SQL)
                               |
                               v
 +-------------------------------------------------------------+
-|                Aiven Cloud MySQL Database                   |
+|                 Local MySQL 8+ Database                     |
 |  - users            - companies          - contacts         |
 |  - outreach         - followups          - proposals        |
 |  - sponsorships     - deliverables       - activities       |
