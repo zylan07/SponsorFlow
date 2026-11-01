@@ -111,8 +111,7 @@ SponsorFlow/
 │   ├── DATABASE_DOCUMENTATION.md  # Detailed table definitions & dictionaries
 │   ├── ER_DIAGRAM.md              # Entity-Relationship diagram (Mermaid)
 │   ├── DFD.md                     # Data Flow Diagrams (Level 0 and Level 1)
-│   ├── TESTING.md                 # Test cases matrix & verification results
-│   └── VIVA_PREPARATION.md        # Comprehensive viva examination Q&A guide
+│   └── TESTING.md                 # Test cases matrix & verification results
 │
 ├── .gitignore                # Protects credentials, logs, and temporary files
 ├── README.md                 # Main project documentation
